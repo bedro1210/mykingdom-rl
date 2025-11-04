@@ -69,7 +69,7 @@ python main.py
 
 
 
-(3) 평가 실행
+(3) 간단한 평가 실행
 
 \# AI 간 대전 (학습 모델 vs 랜덤)
 
@@ -82,7 +82,8 @@ python eval\_othello.py
 python play\_othello.py
 
 
-평가 옵션을 활용한 다양한 평가 실행 설명은 아래에 있습니다.
+평가 옵션을 활용한 다양한 평가 실행 설명은 
+아래의 "실행 옵션"과 "실행 예시"를 참고.
 
 
 ---
@@ -165,7 +166,7 @@ Language: Python 3.9
 ---
 
 
-실행 예시
+**실행 옵션을 활용한 실행 예시**
 
 1. 모델 vs 랜덤 (기본 평가)
 python eval_othello.py --board 6 --games 100 --sims 200 ^
