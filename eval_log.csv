@@ -1,0 +1,6 @@
+datetime,board,games,sims,cpuct,temp,ckpt1_dir,ckpt1_file,vs,ckpt2_dir,ckpt2_file,p1_wins,p2_wins,draws,p1_winrate,drawrate
+2025-11-04T15:08:28,6,100,200,1.0,0.0,C:/mykingdom/alpha-zero-general/pretrained_models/mykingdom,best.pth.tar,random,,,100,0,0,1.0000,0.0000
+2025-11-04T15:46:34,6,100,200,1.0,0.0,C:/mykingdom/alpha-zero-general/pretrained_models/mykingdom,best.pth.tar,greedy,,,100,0,0,1.0000,0.0000
+2025-11-04T16:18:47,6,100,50,1.0,0.0,C:\mykingdom\alpha-zero-general\pretrained_models\mykingdom,best.pth.tar,greedy,,,99,1,0,0.9900,0.0000
+2025-11-04T17:35:22,6,100,200,1.0,1.0,C:\mykingdom\alpha-zero-general\pretrained_models\mykingdom,best.pth.tar,greedy,,,100,0,0,1.0000,0.0000
+2025-11-04T21:21:15,6,100,200,1.0,0.0,C:\mykingdom\alpha-zero-general\pretrained_models\mykingdom,best.pth.tar,ckpt2,C:\mykingdom\alpha-zero-general\pretrained_models\mykingdom,checkpoint_16.pth.tar,61,39,0,0.6100,0.0000
