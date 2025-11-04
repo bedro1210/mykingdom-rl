@@ -85,6 +85,9 @@ python play\_othello.py
 평가 옵션을 활용한 다양한 평가 실행 설명은 아래에 있습니다.
 
 
+---
+
+
 **모델 다운로드**
 
 
@@ -92,6 +95,9 @@ python play\_othello.py
 학습된 최종 모델(best.pth)은 아래 경로에서 확인 가능합니다:
 
 pretrained\_models/mykingdom/best.pth
+
+
+---
 
 
 
@@ -106,6 +112,9 @@ pretrained\_models/mykingdom/best.pth
 정량적 평가 외에도 사람과의 대국 테스트를 통해 전략적 행동 검증 완료
 
 
+---
+
+
 
 **사용 기술**
 
@@ -118,8 +127,11 @@ Framework: PyTorch
 Language: Python 3.9
 
 
+---
 
-실행 옵션 
+
+
+**실행 옵션**
 
 필수
 
@@ -150,26 +162,29 @@ Language: Python 3.9
 --vs ckpt2 를 쓰면 상대 모델도 --ckpt2_dir, --ckpt2_file 로 지정해야 해요.
 
 
-실행 예시 
+---
+
+
+실행 예시
 
 1. 모델 vs 랜덤 (기본 평가)
 python eval_othello.py --board 6 --games 100 --sims 200 ^
   --ckpt1_dir "C:\mykingdom\alpha-zero-general\pretrained_models\mykingdom" ^
   --ckpt1_file "best.pth.tar"
 
-2️. 모델 vs Greedy (1수 앞을 보는 탐욕적 상대)
+2. 모델 vs Greedy (1수 앞을 보는 탐욕적 상대)
 python eval_othello.py --board 6 --games 100 --sims 200 ^
   --ckpt1_dir "C:\mykingdom\alpha-zero-general\pretrained_models\mykingdom" ^
   --ckpt1_file "best.pth.tar" ^
   --vs greedy
 
-3️. 모델 vs 자기 자신 (Self-play 평가)
+3. 모델 vs 자기 자신 (Self-play 평가)
 python eval_othello.py --board 6 --games 100 --sims 200 ^
   --ckpt1_dir "C:\mykingdom\alpha-zero-general\pretrained_models\mykingdom" ^
   --ckpt1_file "best.pth.tar" ^
   --vs self
 
-4️. 체크포인트 간 비교 (이전 vs 최신 모델)
+4. 체크포인트 간 비교 (이전 vs 최신 모델)
 python eval_othello.py --board 6 --games 100 --sims 200 ^
   --ckpt1_dir "C:\mykingdom\alpha-zero-general\pretrained_models\mykingdom" ^
   --ckpt1_file "checkpoint_10.pth.tar" ^
