@@ -15,10 +15,7 @@ log = logging.getLogger(__name__)
 
 
 class Coach():
-    """
-    This class executes the self-play + learning. It uses the functions defined
-    in Game and NeuralNet. args are specified in main.py.
-    """
+
 
     def __init__(self, game, nnet, args):
         self.game = game
@@ -30,21 +27,7 @@ class Coach():
         self.skipFirstSelfPlay = False  # can be overriden in loadTrainExamples()
 
     def executeEpisode(self):
-        """
-        This function executes one episode of self-play, starting with player 1.
-        As the game is played, each turn is added as a training example to
-        trainExamples. The game is played till the game ends. After the game
-        ends, the outcome of the game is used to assign values to each example
-        in trainExamples.
-
-        It uses a temp=1 if episodeStep < tempThreshold, and thereafter
-        uses temp=0.
-
-        Returns:
-            trainExamples: a list of examples of the form (canonicalBoard, currPlayer, pi,v)
-                           pi is the MCTS informed policy vector, v is +1 if
-                           the player eventually won the game, else -1.
-        """
+     
         trainExamples = []
         board = self.game.getInitBoard()
         self.curPlayer = 1
@@ -69,13 +52,7 @@ class Coach():
                 return [(x[0], x[2], r * ((-1) ** (x[1] != self.curPlayer))) for x in trainExamples]
 
     def learn(self):
-        """
-        Performs numIters iterations with numEps episodes of self-play in each
-        iteration. After every iteration, it retrains neural network with
-        examples in trainExamples (which has a maximum length of maxlenofQueue).
-        It then pits the new neural network against the old one and accepts it
-        only if it wins >= updateThreshold fraction of games.
-        """
+      
 
         for i in range(1, self.args.numIters + 1):
             # bookkeeping
@@ -153,5 +130,4 @@ class Coach():
                 self.trainExamplesHistory = Unpickler(f).load()
             log.info('Loading done!')
 
-            # examples based on the model were already collected (loaded)
             self.skipFirstSelfPlay = True

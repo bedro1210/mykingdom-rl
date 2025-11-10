@@ -58,9 +58,7 @@ class GreedyOthelloPlayer():
         return candidates[0][1]
 
 class GTPOthelloPlayer():
-    """
-    Player that plays with Othello programs using the Go Text Protocol.
-    """
+
 
     # The colours are reversed as the Othello programs seems to have the board setup with the opposite colours
     player_colors = {
@@ -69,28 +67,19 @@ class GTPOthelloPlayer():
     }
 
     def __init__(self, game, gtpClient):
-        """
-        Input:
-            game: the game instance
-            gtpClient: list with the command line arguments to start the GTP client with.
-                       The first argument should be the absolute path to the executable.
-        """
+
         self.game = game
         self.gtpClient = gtpClient
 
     def startGame(self):
-        """
-        Should be called before the game starts in order to setup the board.
-        """
+ 
         self._currentPlayer = 1 # Arena does not notify players about their colour so we need to keep track here
         self._process = subprocess.Popen(self.gtpClient, bufsize = 0, stdin = subprocess.PIPE, stdout = subprocess.PIPE)
         self._sendCommand("boardsize " + str(self.game.n))
         self._sendCommand("clear_board")
 
     def endGame(self):
-        """
-        Should be called after the game ends in order to clean-up the used resources.
-        """
+
         if hasattr(self, "_process") and self._process is not None:
             self._sendCommand("quit")
             # Waits for the client to terminate gracefully for 10 seconds. If it does not - kills it.
@@ -101,9 +90,7 @@ class GTPOthelloPlayer():
             self._process = None
 
     def notify(self, board, action):
-        """
-        Should be called after the opponent turn. This way we can update the GTP client with the opponent move.
-        """
+
         color = GTPOthelloPlayer.player_colors[self._currentPlayer]
         move = self._convertActionToMove(action)
         self._sendCommand("play {} {}".format(color, move))
