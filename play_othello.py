@@ -3,10 +3,10 @@ import os
 import argparse
 import numpy as np
 from utils import dotdict
-from MCTS import MCTS
+from tree_search import MCTS
 
 # 프로젝트 구조에 맞춘 import (네가 쓰는 경로)
-from othello.OthelloGame import OthelloGame as Game
+from othello.othello_env import OthelloGame as Game
 from othello.pytorch.NNet import NNetWrapper as NNet
 
 

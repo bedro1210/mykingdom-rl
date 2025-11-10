@@ -3,22 +3,21 @@ import re
 import logging
 import coloredlogs
 
-from Coach import Coach
+from trainer_core import Coach
 from utils import *
 
-# ====== [여기서 게임/네트워크 선택] ==========================================
-# 기본은 MyKingdom으로 설정. 없다면 자동으로 Othello로 폴백합니다.
+
 try:
     from temp_mykingdom.MyKingdomGame import MyKingdomGame as Game
     from temp_mykingdom.pytorch.NNet import NNetWrapper as nn
     DEFAULT_GAME = "MyKingdom"
     DEFAULT_BOARD_SIZE = 9
 except Exception:
-    from othello.OthelloGame import OthelloGame as Game
+    from othello.othello_env import OthelloGame as Game
     from othello.pytorch.NNet import NNetWrapper as nn
     DEFAULT_GAME = "Othello"
     DEFAULT_BOARD_SIZE = 6
-# ============================================================================
+
 
 log = logging.getLogger(__name__)
 coloredlogs.install(level='INFO')  # DEBUG로 바꾸면 더 자세히 나옵니다.

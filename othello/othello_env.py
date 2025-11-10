@@ -2,8 +2,8 @@ from __future__ import print_function
 import sys
 sys.path.append('..')
 
-from Game import Game
-from .OthelloLogic import Board
+from base_env import Game
+from .othello_board import Board
 import numpy as np
 
 

@@ -5,11 +5,11 @@ import csv
 import datetime
 import numpy as np
 from utils import dotdict
-from Arena import Arena
-from MCTS import MCTS
+from match_simulator import Arena
+from tree_search import MCTS
 
 # ★ 네 프로젝트 구조 기준 import (othello.* 경로)
-from othello.OthelloGame import OthelloGame as Game
+from othello.othello_env import OthelloGame as Game
 from othello.pytorch.NNet import NNetWrapper as NNet
 
 

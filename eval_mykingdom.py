@@ -16,8 +16,8 @@ import os
 import numpy as np
 
 from utils import dotdict
-from Arena import Arena
-from MCTS import MCTS
+from match_simulator import Arena
+from tree_search import MCTS
 
 # 게임/네트워크 불러오기 (MyKingdom 없으면 Othello로 폴백)
 from games.mykingdom.MyKingdomGame import MyKingdomGame as Game

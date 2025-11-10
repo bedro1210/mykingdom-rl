@@ -1,5 +1,5 @@
 # main_mykingdom.py
-from Coach import Coach
+from trainer_core import Coach
 from utils import *
 from games.mykingdom.MyKingdomGame import MyKingdomGame as Game
 from games.mykingdom.pytorch.NNet import NNetWrapper as nn  
