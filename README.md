@@ -69,7 +69,8 @@ python main.py
 
 
 
-**실행 옵션을 활용한 실행 예시**
+(3) 실행 옵션을 활용한 실행 예시
+
 
 1️⃣ 모델 vs 랜덤 (기본 평가)
 python eval_othello.py --board 6 --games 100 --sims 200 \
