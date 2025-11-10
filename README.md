@@ -2,7 +2,7 @@
 
 
 
-팀명: Othello-RL  
+팀명: MyKingdom  
 
 팀원: 이준희(20201627)  
 
@@ -69,22 +69,61 @@ python main.py
 
 
 
-(3) 간단한 평가 실행
+**실행 옵션을 활용한 실행 예시**
 
-\# AI 간 대전 (학습 모델 vs 랜덤)
+1️⃣ 모델 vs 랜덤 (기본 평가)
+python eval_othello.py --board 6 --games 100 --sims 200 \
+  --ckpt1_dir "./pretrained_models/mykingdom" \
+  --ckpt1_file "best.pth.tar"
 
-python eval\_othello.py
+2️⃣ 모델 vs Greedy (1수 앞 탐욕형 상대)
+python eval_othello.py --board 6 --games 100 --sims 200 \
+  --ckpt1_dir "./pretrained_models/mykingdom" \
+  --ckpt1_file "best.pth.tar" \
+  --vs greedy
+
+3️⃣ 모델 vs 자기 자신 (Self-play 평가)
+python eval_othello.py --board 6 --games 100 --sims 200 \
+  --ckpt1_dir "./pretrained_models/mykingdom" \
+  --ckpt1_file "best.pth.tar" \
+  --vs self
+
+4️⃣ 체크포인트 간 비교 (이전 vs 최신)
+python eval_othello.py --board 6 --games 100 --sims 200 \
+  --ckpt1_dir "./pretrained_models/mykingdom" \
+  --ckpt1_file "checkpoint_10.pth.tar" \
+  --vs ckpt2 \
+  --ckpt2_dir "./pretrained_models/mykingdom" \
+  --ckpt2_file "best.pth.tar"
+
+🕹️ 사람 vs AI 대전
+
+python play_othello.py --board 6 \
+  --ckpt_dir "./pretrained_models/mykingdom" \
+  --ckpt_file "best.pth.tar" \
+  --human_color black \
+  --sims 200 --cpuct 1.0 --temp 0.0
+
+자주 쓰는 변형
+
+사람을 백(white) 으로 두고 싶을 때:
+
+--human_color white
 
 
+체크포인트 다른 파일로:
 
-\# 사람과 대전
-
-python play\_othello.py
+--ckpt_file "checkpoint_10.pth.tar"
 
 
-평가 옵션을 활용한 다양한 평가 실행 설명은 
-아래의 "실행 옵션"과 "실행 예시"를 참고.
+속도↑(시뮬레이션 수 줄이기):
 
+--sims 50
+
+
+온도(temp)로 랜덤성 주기(기본 0.0 = 탐욕적 선택):
+
+--temp 0.5
 
 ---
 
@@ -163,34 +202,8 @@ Language: Python 3.9
 --vs ckpt2 를 쓰면 상대 모델도 --ckpt2_dir, --ckpt2_file 로 지정해야 해요.
 
 
----
 
 
-**실행 옵션을 활용한 실행 예시**
 
-1. 모델 vs 랜덤 (기본 평가)
-python eval_othello.py --board 6 --games 100 --sims 200 ^
-  --ckpt1_dir "C:\mykingdom\alpha-zero-general\pretrained_models\mykingdom" ^
-  --ckpt1_file "best.pth.tar"
-
-2. 모델 vs Greedy (1수 앞을 보는 탐욕적 상대)
-python eval_othello.py --board 6 --games 100 --sims 200 ^
-  --ckpt1_dir "C:\mykingdom\alpha-zero-general\pretrained_models\mykingdom" ^
-  --ckpt1_file "best.pth.tar" ^
-  --vs greedy
-
-3. 모델 vs 자기 자신 (Self-play 평가)
-python eval_othello.py --board 6 --games 100 --sims 200 ^
-  --ckpt1_dir "C:\mykingdom\alpha-zero-general\pretrained_models\mykingdom" ^
-  --ckpt1_file "best.pth.tar" ^
-  --vs self
-
-4. 체크포인트 간 비교 (이전 vs 최신 모델)
-python eval_othello.py --board 6 --games 100 --sims 200 ^
-  --ckpt1_dir "C:\mykingdom\alpha-zero-general\pretrained_models\mykingdom" ^
-  --ckpt1_file "checkpoint_10.pth.tar" ^
-  --vs ckpt2 ^
-  --ckpt2_dir "C:\mykingdom\alpha-zero-general\pretrained_models\mykingdom" ^
-  --ckpt2_file "best.pth.tar"
 
 

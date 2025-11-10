@@ -5,96 +5,76 @@ log = logging.getLogger(__name__)
 
 
 class Arena:
+    def __init__(self, player1, player2, game, display=None):
+        self.player1 = player1
+        self.player2 = player2
+        self.game = game
+        self.display = display
 
-
-    def __init__(self, p1, p2, env, visualize=None):
-
-        self.p1 = p1
-        self.p2 = p2
-        self.env = env
-        self.visualize = visualize
-
-
-
-    def runSingleGame(self, verbose=False):
-
- 
-        agents = [self.p2, None, self.p1]
+    def playGame(self, verbose=False):
+        players = [self.player2, None, self.player1]
         turn = 1
-        board = self.env.getInitBoard()
+        board = self.game.getInitBoard()
         step = 0
 
-   
-        for agent in (agents[0], agents[2]):
+        for agent in (players[0], players[2]):
             if hasattr(agent, "startGame"):
                 agent.startGame()
 
-     
-        while self.env.getGameEnded(board, turn) == 0:
+        while self.game.getGameEnded(board, turn) == 0:
             step += 1
 
-            if verbose:
-                assert self.visualize
+            if verbose and self.display is not None:
                 print(f"Turn {step} | Player {turn}")
-                self.visualize(board)
+                self.display(board)
 
-            current_view = self.env.getCanonicalForm(board, turn)
-            chosen_action = agents[turn + 1](current_view)
-            valid_moves = self.env.getValidMoves(current_view, 1)
+            view = self.game.getCanonicalForm(board, turn)
+            action = players[turn + 1](view)
+            valid = self.game.getValidMoves(view, 1)
 
-            if valid_moves[chosen_action] == 0:
-                log.error(f"Invalid action attempted: {chosen_action}")
-                log.debug(f"Valid mask: {valid_moves}")
+            if valid[action] == 0:
+                log.error(f"Invalid action attempted: {action}")
+                log.debug(f"Valid mask: {valid}")
                 raise ValueError("Invalid move encountered during play.")
 
-       
-            opponent = agents[-turn + 1]
-            if hasattr(opponent, "notify"):
-                opponent.notify(board, chosen_action)
+            opp = players[-turn + 1]
+            if hasattr(opp, "notify"):
+                opp.notify(board, action)
 
-      
-            board, turn = self.env.getNextState(board, turn, chosen_action)
+            board, turn = self.game.getNextState(board, turn, action)
 
- 
-        for agent in (agents[0], agents[2]):
+        for agent in (players[0], players[2]):
             if hasattr(agent, "endGame"):
                 agent.endGame()
 
+        if verbose and self.display is not None:
+            print(f"Game Over at Turn {step} | Result = {self.game.getGameEnded(board, 1)}")
+            self.display(board)
 
-        if verbose:
-            assert self.visualize
-            print(f"Game Over at Turn {step} | Result = {self.env.getGameEnded(board, 1)}")
-            self.visualize(board)
+        return turn * self.game.getGameEnded(board, turn)
 
-        return turn * self.env.getGameEnded(board, turn)
+    def playGames(self, num, verbose=False):
+        half = int(num / 2)
+        w1 = w2 = dr = 0
 
-    # ------------------------------------------------------
-
-    def runMultipleGames(self, total_games, verbose=False):
-
-        half_games = int(total_games / 2)
-        wins_p1, wins_p2, draws = 0, 0, 0
-
- 
-        for _ in tqdm(range(half_games), desc="Arena.runGames (P1 First)"):
-            result = self.runSingleGame(verbose)
-            if result == 1:
-                wins_p1 += 1
-            elif result == -1:
-                wins_p2 += 1
+        for _ in tqdm(range(half), desc="Arena.playGames (P1 first)"):
+            r = self.playGame(verbose)
+            if r == 1:
+                w1 += 1
+            elif r == -1:
+                w2 += 1
             else:
-                draws += 1
+                dr += 1
 
-   
-        self.p1, self.p2 = self.p2, self.p1
+        self.player1, self.player2 = self.player2, self.player1
 
-        for _ in tqdm(range(half_games), desc="Arena.runGames (P2 First)"):
-            result = self.runSingleGame(verbose)
-            if result == -1:
-                wins_p1 += 1
-            elif result == 1:
-                wins_p2 += 1
+        for _ in tqdm(range(half), desc="Arena.playGames (P2 first)"):
+            r = self.playGame(verbose)
+            if r == -1:
+                w1 += 1
+            elif r == 1:
+                w2 += 1
             else:
-                draws += 1
+                dr += 1
 
-        return wins_p1, wins_p2, draws
+        return w1, w2, dr
